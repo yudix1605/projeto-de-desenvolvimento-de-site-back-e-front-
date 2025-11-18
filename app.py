@@ -4,8 +4,6 @@ from extensions import db
 from config import Config
 import os
 
-
-
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -29,7 +27,7 @@ def create_app():
 
     with app.app_context():
         # import models to register with SQLAlchemy
-        from models import user, task
+        from models import user, food    # <-- CORRIGIDO!!
         db.create_all()
 
     # Register routes
