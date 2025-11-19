@@ -1,69 +1,79 @@
-/* Exemplo: app/globals.css */
+/* frontend/app/globals.css */
+
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 
 body {
-  background: #424141;
-  font-family: 'Inter', 'Helvetica', Arial, sans-serif;
-  color: #24292f;
+  background: #0a0a0a;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  color: #e5e5e5;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 h1, h2, h3 {
-  font-family: 'Inter', 'Helvetica', Arial, sans-serif;
-  font-weight: 800;
-  letter-spacing: -1px;
-  color: #214544;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 a, button {
-  border-radius: 18px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: background 0.2s, color 0.2s;
-}
-
-a {
-  color: #278865;
-  text-decoration: none;
-  padding: 0.25em 1em;
-}
-
-a:hover, button:hover {
-  background: #1c5c51;
-  color: #1d423f;
+  transition: all 0.3s ease;
 }
 
 input, select, textarea {
-  border: 1.5px solid #335c92;
-  border-radius: 16px;
-  padding: 0.75em;
+  background: #1a1a1a;
+  border: 2px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 0.875rem;
   font-size: 1rem;
-  background: #f7fafd;
-  margin-bottom: 1em;
+  color: #e5e5e5;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #ff8c42;
+  background: #222;
+}
+
+input::placeholder {
+  color: #666;
 }
 
 .card {
-  background: #601b1b;
-  box-shadow: 0 2px 32px rgba(1, 8, 6, 0.04), 0 1.5px 4px rgba(50,66,61,0.11);
-  border-radius: 20px;
-  padding: 2em;
-  margin-bottom: 1.5em;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
 }
 
-footer {
-  color: #7a7a7a;
-  font-size: 0.9em;
-  text-align: center;
-  margin-top: 3em;
+.card:hover {
+  border-color: #ff8c42;
+  transform: translateY(-2px);
 }
 
-/* Mobile responsiveness */
-@media (max-width: 650px) {
-  .card, .container {
-    border-radius: 0;
-    padding: 1em;
-  }
-  h1 {
-    font-size: 2em;
-  }
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff8c42;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff9d5c;
 }

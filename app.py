@@ -1,50 +1,35 @@
-from flask import Flask, jsonify
-from flasgger import Swagger
-from extensions import db 
-from config import Config
-import os
+# backend/app.py
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
-    db.init_app(app)
+from flask import Flask
+from flask_cors import CORS
+from extensions import db
+from routes import main_bp
 
-    swagger_config = {
-        "headers": [],
-        "specs": [
-            {
-                "endpoint": 'apispec',
-                "route": '/apispec.json',
-                "rule_filter": lambda rule: True,
-                "model_filter": lambda tag: True,
-            }
-        ],
-        "static_url_path": "/flasgger_static",
-        "swagger_ui": True,
-        "specs_route": "/apidocs/"
+
+app = Flask(__name__)
+
+# Configuração do banco de dados
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dieta.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Inicializa o banco de dados
+db.init_app(app)
+
+# Configura CORS para permitir requisições do frontend
+CORS(app, resources={
+    r"/*": {
+        "origins": ["http://localhost:3000"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
     }
-    Swagger(app, config=swagger_config)
+})
 
-    with app.app_context():
-        # import models to register with SQLAlchemy
-        from models import user, food    # <-- CORRIGIDO!!
-        db.create_all()
+# Registra as rotas
+app.register_blueprint(main_bp)
 
-    # Register routes
-    from views.routes import main_bp
-    app.register_blueprint(main_bp)
+# Cria as tabelas do banco de dados
+with app.app_context():
+    db.create_all()
 
-    @app.route("/", methods=["GET"])
-    def home():
-        return jsonify({"message": "Bem-vindo à API! Acesse /apidocs para a documentação."})
-
-    @app.errorhandler(404)
-    def handle_404(e):
-        return jsonify({"error": "Rota não encontrada"}), 404
-
-    return app
-
-if __name__ == "__main__":
-    app = create_app()
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
