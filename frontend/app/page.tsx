@@ -100,7 +100,7 @@ export default function Home() {
 
       <div className="flex flex-col w-full max-w-md gap-4 my-8 relative z-10">
         <a
-          href="/alimentos"
+          href="/tela01"
           className="rounded-2xl py-5 px-6 text-white text-lg font-semibold transition text-center hover:shadow-2xl"
           style={{
             background: 'linear-gradient(to right, #ff8c42, #ff6b35)',
@@ -114,7 +114,7 @@ export default function Home() {
         </a>
         
         <a
-          href="/alimentos/novo"
+          href="/tela02"
           className="rounded-2xl py-5 px-6 text-lg font-semibold transition text-center hover:bg-gray-900"
           style={{
             background: '#1a1a1a',

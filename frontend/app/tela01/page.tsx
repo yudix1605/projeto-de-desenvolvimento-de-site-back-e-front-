@@ -80,7 +80,7 @@ export default function ListaAlimentos() {
             className="flex-1"
           />
           <a
-            href="/alimentos/novo"
+            href="/tela02"
             className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition shadow-lg shadow-orange-500/25 text-center"
           >
             ➕ Novo Alimento
