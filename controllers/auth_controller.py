@@ -1,5 +1,3 @@
-# backend/controllers/auth_controller.py
-
 from extensions import db
 from models.user import User
 from flask import jsonify, request
@@ -21,7 +19,9 @@ def register_user(data):
     user = User(
         nome=data["nome"].strip(),
         email=data["email"].strip(),
-        senha=hashed_password
+        senha=hashed_password,
+        altura=data.get("altura"),  # Novo campo opcional
+        peso=data.get("peso")       # Novo campo opcional
     )
     
     db.session.add(user)
@@ -29,7 +29,13 @@ def register_user(data):
     
     return jsonify({
         "message": "Usuário cadastrado com sucesso!",
-        "user": {"id": user.id, "nome": user.nome, "email": user.email}
+        "user": {
+            "id": user.id, 
+            "nome": user.nome, 
+            "email": user.email,
+            "altura": user.altura,
+            "peso": user.peso
+        }
     }), 201
 
 def login_user(data):
@@ -44,5 +50,11 @@ def login_user(data):
     
     return jsonify({
         "message": "Login realizado com sucesso!",
-        "user": {"id": user.id, "nome": user.nome, "email": user.email}
+        "user": {
+            "id": user.id, 
+            "nome": user.nome, 
+            "email": user.email,
+            "altura": user.altura,
+            "peso": user.peso
+        }
     }), 200
