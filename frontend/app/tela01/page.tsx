@@ -58,10 +58,15 @@ export default function ListaAlimentos() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
-              <span className="text-orange-500">🍊</span>
+               <img 
+            src="/image.svg" 
+            alt="Dietic Logo" 
+            className="w-32 h-32 mx-auto object-contain"
+            style={{filter: 'drop-shadow(0 10px 40px rgba(255, 107, 53, 0.3))'}}
+          />
               Meus Alimentos
             </h1>
-            <p className="text-gray-400">Gerencie sua base de alimentos</p>
+         
           </div>
           <a
             href="/"
@@ -83,7 +88,7 @@ export default function ListaAlimentos() {
             href="/tela02"
             className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition shadow-lg shadow-orange-500/25 text-center"
           >
-            ➕ Novo Alimento
+           Novo Alimento
           </a>
         </div>
       </div>

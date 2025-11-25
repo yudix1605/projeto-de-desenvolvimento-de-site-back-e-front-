@@ -3,7 +3,7 @@
 from flask import Flask
 from flask_cors import CORS
 from extensions import db
-from routes import main_bp
+from views.routes import routes_bp
 
 
 app = Flask(__name__)
@@ -25,7 +25,7 @@ CORS(app, resources={
 })
 
 # Registra as rotas
-app.register_blueprint(main_bp)
+app.register_blueprint(routes_bp)
 
 # Cria as tabelas do banco de dados
 with app.app_context():
