@@ -1,66 +1,105 @@
 /* frontend/app/globals.css */
 
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background: #0a0a0a;
-  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   color: #e5e5e5;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-h1, h2, h3 {
-  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-a, button {
-  transition: all 0.3s ease;
-}
-
-input, select, textarea {
-  background: #1a1a1a;
-  border: 2px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 0.875rem;
-  font-size: 1rem;
-  color: #e5e5e5;
-  transition: all 0.3s ease;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: #ff8c42;
-  background: #222;
-}
-
-input::placeholder {
-  color: #666;
-}
-
+/* Cards com melhor espaçamento interno */
 .card {
   background: #151515;
   border: 1px solid #2a2a2a;
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1.75rem; /* Aumentado de 1.5rem para 1.75rem */
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  border-color: #ff8c42;
+  border-color: rgba(255, 140, 66, 0.3);
   transform: translateY(-2px);
 }
 
-/* Scrollbar customizada */
+/* Inputs com melhor espaçamento */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  background: #1a1a1a;
+  border: 2px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 0.875rem 1rem; /* Padding mais generoso */
+  color: #e5e5e5;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ff8c42;
+  box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+}
+
+input::placeholder {
+  color: #6b7280;
+}
+
+/* Botões com melhor espaçamento */
+button,
+.button {
+  padding: 0.875rem 1.5rem; /* Padding mais generoso */
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  white-space: nowrap; /* Evita quebra de linha */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+button:hover:not(:disabled),
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Links com melhor espaçamento */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+/* Scrollbar personalizada */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -70,10 +109,110 @@ input::placeholder {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff8c42;
+  background: #2a2a2a;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff9d5c;
+  background: #ff8c42;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.5s ease-out;
+}
+
+/* Utilitários de texto */
+.text-balance {
+  text-wrap: balance;
+}
+
+.leading-relaxed {
+  line-height: 1.75;
+}
+
+/* Melhorias de espaçamento responsivo */
+@media (max-width: 640px) {
+  .card {
+    padding: 1.25rem;
+  }
+  
+  button,
+  .button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  select,
+  textarea {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Melhorias para evitar overflow de texto */
+h1, h2, h3, h4, h5, h6 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Espaçamento entre linhas melhorado */
+p, li {
+  line-height: 1.65;
+}
+
+/* Containers com padding adequado */
+.container-padding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-padding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-padding {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }

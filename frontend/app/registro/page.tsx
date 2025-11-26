@@ -55,21 +55,33 @@ export default function Registro() {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen px-4" style={{background: '#0a0a0a'}}>
+    <main style={{display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '2rem 1rem', background: '#0a0a0a', position: 'relative'}}>
       <div 
-        className="absolute inset-0 pointer-events-none" 
         style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
           background: 'radial-gradient(circle at 50% 50%, rgba(255, 140, 66, 0.1) 0%, transparent 50%)'
         }}
       />
 
-      <div className="w-full max-w-md relative z-10">
-        <div className="text-center mb-8">
-          <span className="text-6xl mb-4 block">🍊</span>
-          <h1 className="text-4xl font-bold mb-2" style={{color: '#ffffff'}}>
+      <div style={{width: '100%', maxWidth: '500px', position: 'relative', zIndex: 10}}>
+        <div style={{textAlign: 'center', marginBottom: '2rem'}}>
+          <img 
+            src="/image.svg" 
+            alt="Dietic Logo" 
+            style={{
+              width: '80px',
+              height: '80px',
+              margin: '0 auto 1rem',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 10px 40px rgba(255, 107, 53, 0.3))'
+            }}
+          />
+          <h1 style={{fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight: 'bold', marginBottom: '0.5rem', color: '#ffffff'}}>
             Criar conta
           </h1>
-          <p style={{color: '#9ca3af'}}>
+          <p style={{color: '#9ca3af', fontSize: '1rem'}}>
             Cadastre-se para começar
           </p>
         </div>
@@ -77,24 +89,25 @@ export default function Registro() {
         <form onSubmit={handleSubmit} style={{
           background: '#151515',
           border: '1px solid #2a2a2a',
-          borderRadius: '16px',
+          borderRadius: '1rem',
           padding: '2rem'
         }}>
           {error && (
             <div style={{
               background: 'rgba(239, 68, 68, 0.1)',
               border: '1px solid rgba(239, 68, 68, 0.3)',
-              borderRadius: '8px',
-              padding: '0.75rem',
+              borderRadius: '0.75rem',
+              padding: '1rem',
               marginBottom: '1.5rem',
-              color: '#ef4444'
+              color: '#ef4444',
+              fontSize: '0.875rem'
             }}>
               {error}
             </div>
           )}
 
           <div style={{marginBottom: '1.5rem'}}>
-            <label className="block text-sm font-medium mb-2" style={{color: '#d1d5db'}}>
+            <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: '#d1d5db'}}>
               Nome completo
             </label>
             <input
@@ -107,8 +120,8 @@ export default function Registro() {
                 width: '100%',
                 background: '#1a1a1a',
                 border: '2px solid #2a2a2a',
-                borderRadius: '12px',
-                padding: '0.875rem',
+                borderRadius: '0.75rem',
+                padding: '0.875rem 1rem',
                 color: '#e5e5e5',
                 fontSize: '1rem'
               }}
@@ -116,7 +129,7 @@ export default function Registro() {
           </div>
 
           <div style={{marginBottom: '1.5rem'}}>
-            <label className="block text-sm font-medium mb-2" style={{color: '#d1d5db'}}>
+            <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: '#d1d5db'}}>
               Email
             </label>
             <input
@@ -129,8 +142,8 @@ export default function Registro() {
                 width: '100%',
                 background: '#1a1a1a',
                 border: '2px solid #2a2a2a',
-                borderRadius: '12px',
-                padding: '0.875rem',
+                borderRadius: '0.75rem',
+                padding: '0.875rem 1rem',
                 color: '#e5e5e5',
                 fontSize: '1rem'
               }}
@@ -138,7 +151,7 @@ export default function Registro() {
           </div>
 
           <div style={{marginBottom: '1.5rem'}}>
-            <label className="block text-sm font-medium mb-2" style={{color: '#d1d5db'}}>
+            <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: '#d1d5db'}}>
               Senha
             </label>
             <input
@@ -151,8 +164,8 @@ export default function Registro() {
                 width: '100%',
                 background: '#1a1a1a',
                 border: '2px solid #2a2a2a',
-                borderRadius: '12px',
-                padding: '0.875rem',
+                borderRadius: '0.75rem',
+                padding: '0.875rem 1rem',
                 color: '#e5e5e5',
                 fontSize: '1rem'
               }}
@@ -160,7 +173,7 @@ export default function Registro() {
           </div>
 
           <div style={{marginBottom: '1.5rem'}}>
-            <label className="block text-sm font-medium mb-2" style={{color: '#d1d5db'}}>
+            <label style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: '#d1d5db'}}>
               Confirmar senha
             </label>
             <input
@@ -173,8 +186,8 @@ export default function Registro() {
                 width: '100%',
                 background: '#1a1a1a',
                 border: '2px solid #2a2a2a',
-                borderRadius: '12px',
-                padding: '0.875rem',
+                borderRadius: '0.75rem',
+                padding: '0.875rem 1rem',
                 color: '#e5e5e5',
                 fontSize: '1rem'
               }}
@@ -184,30 +197,36 @@ export default function Registro() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-xl font-semibold transition"
             style={{
+              width: '100%',
+              padding: '1rem',
+              borderRadius: '0.75rem',
+              fontWeight: '600',
+              fontSize: '1rem',
+              border: 'none',
               background: loading ? '#666' : 'linear-gradient(to right, #ff8c42, #ff6b35)',
               color: 'white',
               boxShadow: '0 10px 40px rgba(255, 140, 66, 0.25)',
               cursor: loading ? 'not-allowed' : 'pointer',
-              opacity: loading ? 0.5 : 1
+              opacity: loading ? 0.5 : 1,
+              transition: 'all 0.3s ease'
             }}
           >
             {loading ? 'Criando conta...' : 'Cadastrar'}
           </button>
 
-          <div className="text-center mt-6">
-            <p style={{color: '#9ca3af'}}>
+          <div style={{textAlign: 'center', marginTop: '1.5rem'}}>
+            <p style={{color: '#9ca3af', fontSize: '0.875rem', margin: 0}}>
               Já tem uma conta?{' '}
-              <a href="/login" style={{color: '#ff8c42', fontWeight: '600'}}>
+              <a href="/login" style={{color: '#ff8c42', fontWeight: '600', textDecoration: 'none'}}>
                 Fazer login
               </a>
             </p>
           </div>
         </form>
 
-        <div className="text-center mt-6">
-          <a href="/" style={{color: '#9ca3af', fontSize: '0.875rem'}}>
+        <div style={{textAlign: 'center', marginTop: '1.5rem'}}>
+          <a href="/" style={{color: '#9ca3af', fontSize: '0.875rem', textDecoration: 'none'}}>
             ← Voltar para home
           </a>
         </div>

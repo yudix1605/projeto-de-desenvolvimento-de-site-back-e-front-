@@ -1,4 +1,4 @@
-// frontend/app/alimentos/page.tsx
+// frontend/app/tela01/page.tsx (ou alimentos/page.tsx)
 
 'use client'
 
@@ -53,110 +53,102 @@ export default function ListaAlimentos() {
   };
 
   return (
-    <main className="min-h-screen px-4 py-8 max-w-5xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
+    <main style={{minHeight: '100vh', padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto'}}>
+      <div style={{marginBottom: '2rem'}}>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem'}}>
           <div>
-            <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
-               <img 
-            src="/image.svg" 
-            alt="Dietic Logo" 
-            className="w-32 h-32 mx-auto object-contain"
-            style={{filter: 'drop-shadow(0 10px 40px rgba(255, 107, 53, 0.3))'}}
-          />
+            <h1 style={{fontSize: 'clamp(1.875rem, 4vw, 2.25rem)', fontWeight: 'bold', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#fff', flexWrap: 'wrap'}}>
+              <img 
+                src="/image.svg" 
+                alt="Dietic Logo" 
+                style={{width: '48px', height: '48px', objectFit: 'contain', filter: 'drop-shadow(0 10px 40px rgba(255, 107, 53, 0.3))'}}
+              />
               Meus Alimentos
             </h1>
-         
           </div>
-          <a
-            href="/"
-            className="px-4 py-2 bg-[#1a1a1a] text-gray-400 rounded-lg border border-gray-700 hover:border-orange-500 hover:text-orange-500 transition text-sm"
-          >
-            ← Voltar
-          </a>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+        <div style={{display: 'flex', flexDirection: window.innerWidth < 640 ? 'column' : 'row', gap: '1rem', alignItems: 'stretch'}}>
           <input
             type="text"
             placeholder="🔍 Buscar alimento..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1"
+            style={{flex: 1, background: '#1a1a1a', border: '2px solid #2a2a2a', borderRadius: '0.75rem', padding: '0.875rem 1rem', color: '#fff', fontSize: '1rem'}}
           />
           <a
             href="/tela02"
-            className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition shadow-lg shadow-orange-500/25 text-center"
+            style={{padding: '0.875rem 1.5rem', background: 'linear-gradient(to right, #ff8c42, #ff6b35)', color: 'white', borderRadius: '0.75rem', fontWeight: '600', textDecoration: 'none', textAlign: 'center', boxShadow: '0 10px 25px rgba(255, 140, 66, 0.25)', whiteSpace: 'nowrap'}}
           >
-           Novo Alimento
+            ➕ Novo Alimento
           </a>
         </div>
       </div>
 
       {loading ? (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-orange-500 border-t-transparent"></div>
-          <p className="text-gray-400 mt-4">Carregando...</p>
+        <div style={{textAlign: 'center', padding: '3rem 0'}}>
+          <div style={{display: 'inline-block', width: '48px', height: '48px', border: '4px solid #ff8c42', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite'}}></div>
+          <p style={{color: '#9ca3af', marginTop: '1rem'}}>Carregando...</p>
         </div>
       ) : alimentosFiltrados.length === 0 ? (
-        <div className="text-center py-12 card">
-          <span className="text-6xl mb-4 block">🍽️</span>
-          <p className="text-gray-400 text-lg">
+        <div style={{textAlign: 'center', padding: '3rem 0', background: '#151515', border: '1px solid #2a2a2a', borderRadius: '1rem'}}>
+          <span style={{fontSize: '4rem', display: 'block', marginBottom: '1rem'}}>🍽️</span>
+          <p style={{color: '#9ca3af', fontSize: '1.125rem'}}>
             {searchTerm ? 'Nenhum alimento encontrado' : 'Nenhum alimento cadastrado ainda'}
           </p>
         </div>
       ) : (
-        <div className="grid gap-4">
+        <div style={{display: 'grid', gap: '1rem'}}>
           {alimentosFiltrados.map((a) => (
             <div
               key={a.id}
-              className="card group hover:shadow-lg hover:shadow-orange-500/10"
+              style={{background: '#151515', border: '1px solid #2a2a2a', borderRadius: '1rem', padding: '1.5rem', transition: 'all 0.3s'}}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-orange-400 mb-3 group-hover:text-orange-300 transition">
+              <div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap'}}>
+                <div style={{flex: 1, minWidth: '250px'}}>
+                  <h3 style={{fontSize: '1.25rem', fontWeight: '600', color: '#ff8c42', marginBottom: '1rem'}}>
                     {a.nome}
                   </h3>
                   
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div className="bg-[#1a1a1a] rounded-lg p-3 border border-gray-800">
-                      <div className="text-xs text-gray-500 mb-1">Calorias</div>
-                      <div className="text-lg font-bold text-orange-400">{a.calorias}</div>
-                      <div className="text-xs text-gray-600">kcal</div>
+                  <div style={{display: 'grid', gridTemplateColumns: window.innerWidth < 640 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '1rem'}}>
+                    <div style={{background: '#1a1a1a', borderRadius: '0.75rem', padding: '0.875rem', border: '1px solid #2a2a2a'}}>
+                      <div style={{fontSize: '0.75rem', color: '#9ca3af', marginBottom: '0.25rem'}}>Calorias</div>
+                      <div style={{fontSize: '1.125rem', fontWeight: 'bold', color: '#ff8c42'}}>{a.calorias}</div>
+                      <div style={{fontSize: '0.75rem', color: '#6b7280'}}>kcal</div>
                     </div>
                     
-                    <div className="bg-[#1a1a1a] rounded-lg p-3 border border-gray-800">
-                      <div className="text-xs text-gray-500 mb-1">Proteínas</div>
-                      <div className="text-lg font-bold text-blue-400">{a.proteinas}</div>
-                      <div className="text-xs text-gray-600">g</div>
+                    <div style={{background: '#1a1a1a', borderRadius: '0.75rem', padding: '0.875rem', border: '1px solid #2a2a2a'}}>
+                      <div style={{fontSize: '0.75rem', color: '#9ca3af', marginBottom: '0.25rem'}}>Proteínas</div>
+                      <div style={{fontSize: '1.125rem', fontWeight: 'bold', color: '#60a5fa'}}>{a.proteinas}</div>
+                      <div style={{fontSize: '0.75rem', color: '#6b7280'}}>g</div>
                     </div>
                     
-                    <div className="bg-[#1a1a1a] rounded-lg p-3 border border-gray-800">
-                      <div className="text-xs text-gray-500 mb-1">Carboidratos</div>
-                      <div className="text-lg font-bold text-green-400">{a.carboidratos}</div>
-                      <div className="text-xs text-gray-600">g</div>
+                    <div style={{background: '#1a1a1a', borderRadius: '0.75rem', padding: '0.875rem', border: '1px solid #2a2a2a'}}>
+                      <div style={{fontSize: '0.75rem', color: '#9ca3af', marginBottom: '0.25rem'}}>Carboidratos</div>
+                      <div style={{fontSize: '1.125rem', fontWeight: 'bold', color: '#34d399'}}>{a.carboidratos}</div>
+                      <div style={{fontSize: '0.75rem', color: '#6b7280'}}>g</div>
                     </div>
                     
-                    <div className="bg-[#1a1a1a] rounded-lg p-3 border border-gray-800">
-                      <div className="text-xs text-gray-500 mb-1">Gorduras</div>
-                      <div className="text-lg font-bold text-yellow-400">{a.gorduras}</div>
-                      <div className="text-xs text-gray-600">g</div>
+                    <div style={{background: '#1a1a1a', borderRadius: '0.75rem', padding: '0.875rem', border: '1px solid #2a2a2a'}}>
+                      <div style={{fontSize: '0.75rem', color: '#9ca3af', marginBottom: '0.25rem'}}>Gorduras</div>
+                      <div style={{fontSize: '1.125rem', fontWeight: 'bold', color: '#fbbf24'}}>{a.gorduras}</div>
+                      <div style={{fontSize: '0.75rem', color: '#6b7280'}}>g</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex flex-col gap-2">
+                <div style={{display: 'flex', flexDirection: window.innerWidth < 640 ? 'row' : 'column', gap: '0.5rem'}}>
                   <a
                     href={`/alimentos/editar/${a.id}`}
-                    className="px-4 py-2 bg-[#1a1a1a] text-orange-400 rounded-lg border border-orange-500/30 hover:border-orange-500 hover:bg-[#222] transition text-sm font-medium text-center"
+                    style={{padding: '0.625rem 1rem', background: '#1a1a1a', color: '#ff8c42', borderRadius: '0.5rem', border: '1px solid rgba(255, 140, 66, 0.3)', textDecoration: 'none', fontSize: '0.875rem', fontWeight: '500', textAlign: 'center', whiteSpace: 'nowrap'}}
                   >
-                    ✏️
+                    ✏️ Editar
                   </a>
                   <button
                     onClick={() => handleDelete(a.id)}
-                    className="px-4 py-2 bg-[#1a1a1a] text-red-400 rounded-lg border border-red-500/30 hover:border-red-500 hover:bg-[#222] transition text-sm font-medium"
+                    style={{padding: '0.625rem 1rem', background: '#1a1a1a', color: '#ef4444', borderRadius: '0.5rem', border: '1px solid rgba(239, 68, 68, 0.3)', fontSize: '0.875rem', fontWeight: '500', cursor: 'pointer', whiteSpace: 'nowrap'}}
                   >
-                    🗑️
+                    🗑️ Excluir
                   </button>
                 </div>
               </div>
@@ -165,9 +157,15 @@ export default function ListaAlimentos() {
         </div>
       )}
 
-      <div className="mt-8 text-center text-gray-500 text-sm">
+      <div style={{marginTop: '2rem', textAlign: 'center', color: '#6b7280', fontSize: '0.875rem'}}>
         Total: {alimentosFiltrados.length} alimento(s)
       </div>
+
+      <style jsx>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </main>
   );
 }

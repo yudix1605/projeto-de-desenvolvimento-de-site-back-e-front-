@@ -44,68 +44,138 @@ export default function Login() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen pt-20 pb-8 px-4" style={{background: '#0a0a0a'}}>
-      <div className="w-full max-w-md">
-        <div className="card">
-          <h1 className="text-2xl font-bold mb-6 text-center">Entrar na sua conta</h1>
-          
+    <main style={{display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '2rem 1rem', background: '#0a0a0a', position: 'relative'}}>
+      <div 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          background: 'radial-gradient(circle at 50% 50%, rgba(255, 140, 66, 0.1) 0%, transparent 50%)'
+        }}
+      />
+
+      <div style={{width: '100%', maxWidth: '500px', position: 'relative', zIndex: 10}}>
+        <div style={{textAlign: 'center', marginBottom: '2rem'}}>
+          <img 
+            src="/image.svg" 
+            alt="Dietic Logo" 
+            style={{
+              width: '80px',
+              height: '80px',
+              margin: '0 auto 1rem',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 10px 40px rgba(255, 107, 53, 0.3))'
+            }}
+          />
+          <h1 style={{fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight: 'bold', marginBottom: '0.5rem', color: '#ffffff'}}>
+            Entrar na sua conta
+          </h1>
+          <p style={{color: '#9ca3af', fontSize: '1rem'}}>
+            Acesse sua conta para continuar
+          </p>
+        </div>
+
+        <form onSubmit={handleLogin} style={{
+          background: '#151515',
+          border: '1px solid #2a2a2a',
+          borderRadius: '1rem',
+          padding: '2rem'
+        }}>
           {error && (
-            <div className="mb-4 p-3 rounded-lg text-sm" style={{background: '#2a1a1a', color: '#ff6b6b', border: '1px solid #5c2a2a'}}>
+            <div style={{
+              background: 'rgba(239, 68, 68, 0.1)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              borderRadius: '0.75rem',
+              padding: '1rem',
+              marginBottom: '1.5rem',
+              color: '#ef4444',
+              fontSize: '0.875rem'
+            }}>
               {error}
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2" style={{color: '#e5e5e5'}}>
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="seu@email.com"
-                required
-                className="w-full"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="senha" className="block text-sm font-medium mb-2" style={{color: '#e5e5e5'}}>
-                Senha
-              </label>
-              <input
-                type="password"
-                id="senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                placeholder="Sua senha"
-                required
-                className="w-full"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-lg py-3 px-4 text-white font-semibold transition disabled:opacity-50"
+          <div style={{marginBottom: '1.5rem'}}>
+            <label htmlFor="email" style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: '#d1d5db'}}>
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="seu@email.com"
+              required
               style={{
-                background: 'linear-gradient(to right, #ff8c42, #ff6b35)',
+                width: '100%',
+                background: '#1a1a1a',
+                border: '2px solid #2a2a2a',
+                borderRadius: '0.75rem',
+                padding: '0.875rem 1rem',
+                color: '#e5e5e5',
+                fontSize: '1rem'
               }}
-            >
-              {loading ? 'Entrando...' : 'Entrar'}
-            </button>
-          </form>
+            />
+          </div>
 
-          <div className="mt-6 text-center">
-            <span style={{color: '#9ca3af'}}>
+          <div style={{marginBottom: '1.5rem'}}>
+            <label htmlFor="senha" style={{display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: '#d1d5db'}}>
+              Senha
+            </label>
+            <input
+              type="password"
+              id="senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              placeholder="••••••••"
+              required
+              style={{
+                width: '100%',
+                background: '#1a1a1a',
+                border: '2px solid #2a2a2a',
+                borderRadius: '0.75rem',
+                padding: '0.875rem 1rem',
+                color: '#e5e5e5',
+                fontSize: '1rem'
+              }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '1rem',
+              borderRadius: '0.75rem',
+              fontWeight: '600',
+              fontSize: '1rem',
+              border: 'none',
+              background: loading ? '#666' : 'linear-gradient(to right, #ff8c42, #ff6b35)',
+              color: 'white',
+              boxShadow: '0 10px 40px rgba(255, 140, 66, 0.25)',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.5 : 1,
+              transition: 'all 0.3s ease'
+            }}
+          >
+            {loading ? 'Entrando...' : 'Entrar'}
+          </button>
+
+          <div style={{textAlign: 'center', marginTop: '1.5rem'}}>
+            <p style={{color: '#9ca3af', fontSize: '0.875rem', margin: 0}}>
               Não tem uma conta?{' '}
-              <a href="/cadastro" style={{color: '#ff8c42'}} className="hover:underline">
+              <a href="/registro" style={{color: '#ff8c42', fontWeight: '600', textDecoration: 'none'}}>
                 Cadastre-se
               </a>
-            </span>
+            </p>
           </div>
+        </form>
+
+        <div style={{textAlign: 'center', marginTop: '1.5rem'}}>
+          <a href="/" style={{color: '#9ca3af', fontSize: '0.875rem', textDecoration: 'none'}}>
+            ← Voltar para home
+          </a>
         </div>
       </div>
     </main>

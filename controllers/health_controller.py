@@ -1,5 +1,6 @@
 from extensions import db
 from models.user import User
+from models.food import Food
 from flask import jsonify, request
 
 def calcular_imc(user_id, data):
@@ -53,7 +54,7 @@ def obter_imc(user_id):
     }), 200
 
 def sugerir_dieta(user_id):
-    """Sugere uma dieta baseada no IMC do usuário"""
+    """Sugere uma dieta baseada no IMC do usuário e inclui alimentos cadastrados"""
     user = User.query.get(user_id)
     if not user:
         return jsonify({"error": "Usuário não encontrado."}), 404
@@ -64,54 +65,104 @@ def sugerir_dieta(user_id):
     
     classificacao = user.classificar_imc()
     
+    # Busca alimentos cadastrados
+    alimentos = Food.query.all()
+    
+    # Categoriza alimentos por características
+    alimentos_proteicos = []
+    alimentos_carboidratos = []
+    alimentos_balanceados = []
+    alimentos_low_cal = []
+    
+    for alimento in alimentos:
+        # Proteicos: mais de 15g de proteína por 100g
+        if alimento.proteinas > 15:
+            alimentos_proteicos.append({
+                'nome': alimento.nome,
+                'calorias': alimento.calorias,
+                'proteinas': alimento.proteinas
+            })
+        
+        # Carboidratos: mais de 40g de carboidrato por 100g
+        if alimento.carboidratos > 40:
+            alimentos_carboidratos.append({
+                'nome': alimento.nome,
+                'calorias': alimento.calorias,
+                'carboidratos': alimento.carboidratos
+            })
+        
+        # Balanceados: equilibrado em macros
+        if 10 <= alimento.proteinas <= 20 and 20 <= alimento.carboidratos <= 50:
+            alimentos_balanceados.append({
+                'nome': alimento.nome,
+                'calorias': alimento.calorias
+            })
+        
+        # Low cal: menos de 100 calorias por 100g
+        if alimento.calorias < 100:
+            alimentos_low_cal.append({
+                'nome': alimento.nome,
+                'calorias': alimento.calorias
+            })
+    
     # Sugestões de dieta baseadas na classificação do IMC
     dietas = {
         "Abaixo do peso": {
             "nome": "Dieta para Ganho de Massa",
             "objetivo": "Aumentar massa muscular e peso de forma saudável",
-            "calorias_diarias": f"Aproximadamente {int(user.peso * 40)} calorias",
+            "calorias_diarias": f"{int(user.peso * 40)} kcal",
             "distribuicao": "30% proteínas, 40% carboidratos, 30% gorduras",
             "recomendacoes": [
                 "Consuma proteínas em todas as refeições",
                 "Inclua carboidratos complexos",
-                "Fracione as refeições (6-8 refeições por dia)",
+                "Faça 6-8 refeições por dia",
                 "Beba bastante água",
                 "Pratique exercícios de força"
             ],
             "alimentos_sugeridos": [
                 "Frango, peixe, ovos",
                 "Arroz integral, batata doce, aveia",
-                "Abacate, azeite de oliva, castanhas",
+                "Abacate, azeite, castanhas",
                 "Frutas secas, whey protein"
-            ]
+            ],
+            "seus_alimentos": {
+                "proteicos": alimentos_proteicos[:5] if alimentos_proteicos else [],
+                "carboidratos": alimentos_carboidratos[:5] if alimentos_carboidratos else [],
+                "balanceados": alimentos_balanceados[:3] if alimentos_balanceados else []
+            }
         },
         "Peso normal": {
             "nome": "Dieta de Manutenção",
             "objetivo": "Manter o peso atual e saúde",
-            "calorias_diarias": f"Aproximadamente {int(user.peso * 35)} calorias",
+            "calorias_diarias": f"{int(user.peso * 35)} kcal",
             "distribuicao": "25% proteínas, 45% carboidratos, 30% gorduras",
             "recomendacoes": [
-                "Mantenha uma alimentação balanceada",
+                "Mantenha alimentação balanceada",
                 "Consuma frutas e vegetais variados",
                 "Hidrate-se adequadamente",
-                "Pratique atividades físicas regularmente",
-                "Evite alimentos ultraprocessados"
+                "Pratique atividades físicas",
+                "Evite processados"
             ],
             "alimentos_sugeridos": [
                 "Proteínas magras",
                 "Grãos integrais",
-                "Frutas e vegetais coloridos",
+                "Frutas e vegetais",
                 "Gorduras saudáveis"
-            ]
+            ],
+            "seus_alimentos": {
+                "balanceados": alimentos_balanceados[:5] if alimentos_balanceados else [],
+                "proteicos": alimentos_proteicos[:3] if alimentos_proteicos else [],
+                "low_cal": alimentos_low_cal[:3] if alimentos_low_cal else []
+            }
         },
         "Sobrepeso": {
             "nome": "Dieta para Perda de Peso",
             "objetivo": "Perda de peso gradual e saudável",
-            "calorias_diarias": f"Aproximadamente {int(user.peso * 30)} calorias",
+            "calorias_diarias": f"{int(user.peso * 30)} kcal",
             "distribuicao": "30% proteínas, 40% carboidratos, 30% gorduras",
             "recomendacoes": [
                 "Déficit calórico moderado",
-                "Aumente o consumo de fibras",
+                "Aumente consumo de fibras",
                 "Reduza açúcares e gorduras saturadas",
                 "Pratique exercícios aeróbicos",
                 "Mantenha-se hidratado"
@@ -121,26 +172,35 @@ def sugerir_dieta(user_id):
                 "Proteínas magras",
                 "Grãos integrais",
                 "Frutas com baixo índice glicêmico"
-            ]
+            ],
+            "seus_alimentos": {
+                "low_cal": alimentos_low_cal[:5] if alimentos_low_cal else [],
+                "proteicos": alimentos_proteicos[:4] if alimentos_proteicos else [],
+                "balanceados": alimentos_balanceados[:3] if alimentos_balanceados else []
+            }
         },
         "Obesidade Grau I": {
             "nome": "Dieta para Redução de Peso",
             "objetivo": "Redução significativa de peso",
-            "calorias_diarias": f"Aproximadamente {int(user.peso * 25)} calorias",
+            "calorias_diarias": f"{int(user.peso * 25)} kcal",
             "distribuicao": "35% proteínas, 35% carboidratos, 30% gorduras",
             "recomendacoes": [
                 "Déficit calórico controlado",
                 "Acompanhamento médico recomendado",
                 "Exercícios de baixo impacto",
-                "Alimentos com baixa densidade calórica",
-                "Evite alimentos processados"
+                "Baixa densidade calórica",
+                "Evite processados"
             ],
             "alimentos_sugeridos": [
                 "Vegetais crus e cozidos",
                 "Proteínas magras",
                 "Gorduras saudáveis",
                 "Chás e água"
-            ]
+            ],
+            "seus_alimentos": {
+                "low_cal": alimentos_low_cal[:6] if alimentos_low_cal else [],
+                "proteicos": alimentos_proteicos[:4] if alimentos_proteicos else []
+            }
         },
         "Obesidade Grau II": {
             "nome": "Dieta Controlada",
@@ -150,16 +210,20 @@ def sugerir_dieta(user_id):
             "recomendacoes": [
                 "Acompanhamento médico obrigatório",
                 "Exercícios supervisionados",
-                "Alimentação balanceada e controlada",
-                "Evite completamente alimentos processados",
+                "Alimentação balanceada",
+                "Evite processados",
                 "Foco em saúde metabólica"
             ],
             "alimentos_sugeridos": [
                 "Vegetais variados",
                 "Proteínas magras",
-                "Gorduras saudáveis em moderação",
+                "Gorduras saudáveis moderadas",
                 "Água e chás sem açúcar"
-            ]
+            ],
+            "seus_alimentos": {
+                "low_cal": alimentos_low_cal[:5] if alimentos_low_cal else [],
+                "proteicos": alimentos_proteicos[:3] if alimentos_proteicos else []
+            }
         },
         "Obesidade Grau III": {
             "nome": "Dieta com Supervisão Médica",
@@ -168,14 +232,17 @@ def sugerir_dieta(user_id):
             "distribuicao": "Definida por profissional",
             "recomendacoes": [
                 "Acompanhamento médico essencial",
-                "Exercícios somente com supervisão",
+                "Exercícios com supervisão",
                 "Plano alimentar individualizado",
                 "Tratamento multidisciplinar",
-                "Foco em melhorar comorbidades"
+                "Foco em comorbidades"
             ],
             "alimentos_sugeridos": [
                 "Orientação profissional específica"
-            ]
+            ],
+            "seus_alimentos": {
+                "low_cal": alimentos_low_cal[:4] if alimentos_low_cal else []
+            }
         }
     }
     

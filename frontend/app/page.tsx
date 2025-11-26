@@ -14,27 +14,54 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center min-h-screen pb-8 px-4" style={{background: '#0a0a0a'}}>
+    <main style={{background: '#0a0a0a', minHeight: '100vh'}}>
       {/* Background gradient */}
       <div 
-        className="absolute inset-0 pointer-events-none" 
         style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
           background: 'radial-gradient(circle at 50% 0%, rgba(255, 107, 53, 0.15) 0%, transparent 60%)'
         }}
       />
       
-      {/* Hero Section */}
-      <section className="mt-16 mb-20 text-center relative z-10 max-w-3xl mx-auto">
-        <div className="inline-block mb-6">
+      {/* Hero Section - Primeira tela */}
+      <section style={{
+        minHeight: 'calc(100vh - 120px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        position: 'relative',
+        zIndex: 10,
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 1rem'
+      }}>
+        <div style={{marginBottom: '2rem'}}>
           <img 
             src="/image.svg" 
             alt="Dietic Logo" 
-            className="w-32 h-32 mx-auto object-contain"
-            style={{filter: 'drop-shadow(0 10px 40px rgba(255, 107, 53, 0.3))'}}
+            style={{
+              width: '144px',
+              height: '144px',
+              margin: '0 auto',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 10px 40px rgba(255, 107, 53, 0.3))'
+            }}
           />
         </div>
-        <h1 className="text-5xl sm:text-6xl font-bold leading-tight mb-6 tracking-tight" style={{color: '#ffffff'}}>
-          Alimente sua saúde
+        
+        <h1 style={{
+          fontSize: 'clamp(2rem, 5vw, 3.75rem)',
+          fontWeight: 'bold',
+          lineHeight: '1.2',
+          marginBottom: '2rem',
+          color: '#ffffff',
+          padding: '0 1rem'
+        }}>
+          Alimente sua saúde com
           <br />
           <span style={{
             background: 'linear-gradient(to right, #ff6b35, #ff8c42)',
@@ -42,58 +69,102 @@ export default function Home() {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
           }}>
-            com equilíbrio
+            equilíbrio
           </span>
         </h1>
-        <p className="text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style={{color: '#9ca3af'}}>
-        
-        </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div style={{
+          display: 'flex',
+          flexDirection: window.innerWidth < 640 ? 'column' : 'row',
+          gap: '1rem',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '1.5rem',
+          width: '100%',
+          maxWidth: '600px',
+          padding: '0 1rem'
+        }}>
           {isLoggedIn ? (
             <>
               <a
                 href="/tela01"
-                className="rounded-2xl py-4 px-10 text-white text-lg font-semibold transition hover:shadow-2xl hover:scale-105"
                 style={{
+                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  padding: '1rem 2rem',
+                  borderRadius: '1rem',
                   background: 'linear-gradient(135deg, #ff6b35, #ff8c42)',
-                  boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)'
+                  color: 'white',
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)',
+                  minWidth: '200px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
                 }}
               >
                 Ver Alimentos
               </a>
               <a
-                href="/tela02"
-                className="rounded-2xl py-4 px-10 text-lg font-semibold transition hover:bg-gray-900 hover:scale-105"
+                href="/saude"
                 style={{
+                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  padding: '1rem 2rem',
+                  borderRadius: '1rem',
                   background: '#1a1a1a',
                   color: '#ff8c42',
-                  border: '2px solid rgba(255, 140, 66, 0.3)'
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  border: '2px solid rgba(255, 140, 66, 0.3)',
+                  minWidth: '200px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
                 }}
               >
-                Novo Alimento
+                Calcular IMC
               </a>
             </>
           ) : (
             <>
               <a
-                href="/cadastro"
-                className="rounded-2xl py-4 px-10 text-white text-lg font-semibold transition hover:shadow-2xl hover:scale-105"
+                href="/registro"
                 style={{
+                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  padding: '1rem 2rem',
+                  borderRadius: '1rem',
                   background: 'linear-gradient(135deg, #ff6b35, #ff8c42)',
-                  boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)'
+                  color: 'white',
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  boxShadow: '0 10px 40px rgba(255, 107, 53, 0.4)',
+                  minWidth: '200px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
                 }}
               >
                 Começar Agora
               </a>
               <a
                 href="#sobre"
-                className="rounded-2xl py-4 px-10 text-lg font-semibold transition hover:bg-gray-900 hover:scale-105"
                 style={{
+                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  padding: '1rem 2rem',
+                  borderRadius: '1rem',
                   background: '#1a1a1a',
                   color: '#ff8c42',
-                  border: '2px solid rgba(255, 140, 66, 0.3)'
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  border: '2px solid rgba(255, 140, 66, 0.3)',
+                  minWidth: '200px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
                 }}
               >
                 Saiba Mais
@@ -104,36 +175,66 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full mb-20 relative z-10 px-4">
-        <div className="card text-center hover:scale-105 transition-transform">
-          <div className="text-5xl mb-4">📊</div>
-          <h3 className="text-xl font-bold mb-3" style={{color: '#ff8c42'}}>Controle Total</h3>
-          <p className="leading-relaxed" style={{color: '#9ca3af'}}>
-            Gerencie todos os seus alimentos e informações nutricionais em um só lugar
-          </p>
-        </div>
-        
-        <div className="card text-center hover:scale-105 transition-transform">
-          <div className="text-5xl mb-4">⚡</div>
-          <h3 className="text-xl font-bold mb-3" style={{color: '#ff8c42'}}>Rápido e Fácil</h3>
-          <p className="leading-relaxed" style={{color: '#9ca3af'}}>
-            Interface intuitiva para adicionar e buscar alimentos em segundos
-          </p>
-        </div>
-        
-        <div className="card text-center hover:scale-105 transition-transform">
-          <div className="text-5xl mb-4">🎯</div>
-          <h3 className="text-xl font-bold mb-3" style={{color: '#ff8c42'}}>Seus Objetivos</h3>
-          <p className="leading-relaxed" style={{color: '#9ca3af'}}>
-            Acompanhe calorias, proteínas, carboidratos e gorduras com precisão
-          </p>
-        </div>
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: window.innerWidth < 640 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+        gap: '1.5rem',
+        maxWidth: '1200px',
+        width: '100%',
+        margin: '0 auto 8rem',
+        position: 'relative',
+        zIndex: 10,
+        padding: '0 1rem'
+      }}>
+        {[
+          { icon: '📊', titulo: 'Controle Total', desc: 'Gerencie alimentos e informações nutricionais em um só lugar' },
+          { icon: '💪', titulo: 'Saúde em Foco', desc: 'Calcule seu IMC e receba dietas personalizadas' },
+          { icon: '🎯', titulo: 'Seus Objetivos', desc: 'Acompanhe macros e calorias com precisão' }
+        ].map((feature, idx) => (
+          <div key={idx} style={{
+            background: '#151515',
+            border: '1px solid #2a2a2a',
+            borderRadius: '1rem',
+            padding: '2rem',
+            textAlign: 'center',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.borderColor = 'rgba(255, 140, 66, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.borderColor = '#2a2a2a';
+          }}>
+            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>{feature.icon}</div>
+            <h3 style={{fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem', color: '#ff8c42'}}>
+              {feature.titulo}
+            </h3>
+            <p style={{lineHeight: '1.5', fontSize: '0.875rem', color: '#9ca3af'}}>
+              {feature.desc}
+            </p>
+          </div>
+        ))}
       </section>
 
-      {/* Sobre Nós Section */}
-      <section id="sobre" className="max-w-5xl w-full relative z-10 mb-20 px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{color: '#ffffff'}}>
+      {/* Sobre Section */}
+      <section id="sobre" style={{
+        maxWidth: '1200px',
+        width: '100%',
+        position: 'relative',
+        zIndex: 10,
+        margin: '8rem auto 4rem',
+        padding: '0 1rem'
+      }}>
+        <div style={{textAlign: 'center', marginBottom: '3rem'}}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontWeight: 'bold',
+            marginBottom: '1rem',
+            color: '#ffffff'
+          }}>
             Sobre o <span style={{
               background: 'linear-gradient(to right, #ff6b35, #ff8c42)',
               WebkitBackgroundClip: 'text',
@@ -141,147 +242,94 @@ export default function Home() {
               backgroundClip: 'text'
             }}>Dietic</span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{color: '#9ca3af'}}>
-          </p>
         </div>
 
         {/* Mission */}
-        <div className="card mb-10 max-w-3xl mx-auto">
-          <div className="flex flex-col md:flex-row items-start gap-4">
-            <span className="text-5xl">🎯</span>
-            <div>
-              <h3 className="text-2xl font-bold mb-4" style={{color: '#ff8c42'}}>
+        <div style={{
+          background: '#151515',
+          border: '1px solid #2a2a2a',
+          borderRadius: '1rem',
+          padding: '2rem',
+          marginBottom: '2.5rem'
+        }}>
+          <div style={{display: 'flex', gap: '1rem', alignItems: 'flex-start', flexWrap: 'wrap'}}>
+            <span style={{fontSize: '3rem'}}>🎯</span>
+            <div style={{flex: 1, minWidth: '250px'}}>
+              <h3 style={{fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', color: '#ff8c42'}}>
                 Nossa Missão
               </h3>
-              <p className="text-gray-300 leading-relaxed text-lg">
-                O Dietic foi criado com o objetivo de simplificar o controle alimentar e nutricional. 
-                Acreditamos que todos merecem ter acesso fácil às informações sobre os alimentos que 
-                consomem, permitindo escolhas mais conscientes e saudáveis no dia a dia.
+              <p style={{color: '#d1d5db', lineHeight: '1.7', fontSize: '1rem'}}>
+                Simplificar o controle alimentar e nutricional, tornando mais fácil 
+                fazer escolhas conscientes e saudáveis no dia a dia.
               </p>
             </div>
           </div>
         </div>
 
-        {/* What We Offer */}
-        <div className="mb-12">
-          <h3 className="text-3xl font-bold mb-8 text-center" style={{color: '#ffffff'}}>
-            O que oferecemos
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <div className="card hover:scale-105 transition-transform">
-              <div className="flex items-start gap-3">
-                <span className="text-4xl">📊</span>
-                <div>
-                  <h4 className="text-xl font-semibold mb-2" style={{color: '#ff8c42'}}>
-                    Gestão Completa
-                  </h4>
-                  <p className="leading-relaxed" style={{color: '#9ca3af'}}>
-                    Cadastre, edite e gerencie todos os seus alimentos com informações nutricionais detalhadas
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card hover:scale-105 transition-transform">
-              <div className="flex items-start gap-3">
-                <span className="text-4xl">🔍</span>
-                <div>
-                  <h4 className="text-xl font-semibold mb-2" style={{color: '#ff8c42'}}>
-                    Busca Rápida
-                  </h4>
-                  <p className="leading-relaxed" style={{color: '#9ca3af'}}>
-                    Encontre rapidamente qualquer alimento da sua base com nosso sistema de busca inteligente
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card hover:scale-105 transition-transform">
-              <div className="flex items-start gap-3">
-                <span className="text-4xl">📈</span>
-                <div>
-                  <h4 className="text-xl font-semibold mb-2" style={{color: '#ff8c42'}}>
-                    Informações Precisas
-                  </h4>
-                  <p className="leading-relaxed" style={{color: '#9ca3af'}}>
-                    Acompanhe calorias, proteínas, carboidratos e gorduras de cada alimento
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card hover:scale-105 transition-transform">
-              <div className="flex items-start gap-3">
-                <span className="text-4xl">🎨</span>
-                <div>
-                  <h4 className="text-xl font-semibold mb-2" style={{color: '#ff8c42'}}>
-                    Interface Moderna
-                  </h4>
-                  <p className="leading-relaxed" style={{color: '#9ca3af'}}>
-                    Design intuitivo e elegante que torna o gerenciamento nutricional mais agradável
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Values */}
-        <div className="card mb-12 max-w-4xl mx-auto" style={{
-          background: 'linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 140, 66, 0.05) 100%)',
-          borderColor: 'rgba(255, 140, 66, 0.2)'
+        {/* O que oferecemos */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: window.innerWidth < 640 ? '1fr' : 'repeat(2, 1fr)',
+          gap: '1.5rem',
+          marginBottom: '2.5rem'
         }}>
-          <h3 className="text-2xl font-bold mb-8 text-center" style={{color: '#ff8c42'}}>
-            Nossos Valores
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl mb-3">💪</div>
-              <h4 className="font-semibold mb-2 text-lg" style={{color: '#ffffff'}}>Saúde em Primeiro Lugar</h4>
-              <p className="text-sm leading-relaxed" style={{color: '#9ca3af'}}>
-                Facilitamos o cuidado com sua alimentação
-              </p>
+          {[
+            { icon: '📊', titulo: 'Gestão Completa', desc: 'Cadastre e gerencie alimentos com informações nutricionais' },
+            { icon: '🔍', titulo: 'Busca Rápida', desc: 'Encontre qualquer alimento rapidamente' },
+            { icon: '💪', titulo: 'Cálculo de IMC', desc: 'Calcule seu IMC e receba dietas personalizadas' },
+            { icon: '🎨', titulo: 'Interface Moderna', desc: 'Design intuitivo e elegante' }
+          ].map((item, idx) => (
+            <div key={idx} style={{
+              background: '#151515',
+              border: '1px solid #2a2a2a',
+              borderRadius: '1rem',
+              padding: '1.5rem',
+              transition: 'all 0.3s ease'
+            }}>
+              <div style={{display: 'flex', gap: '0.75rem', alignItems: 'flex-start'}}>
+                <span style={{fontSize: '2.5rem'}}>{item.icon}</span>
+                <div>
+                  <h4 style={{fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: '#ff8c42'}}>
+                    {item.titulo}
+                  </h4>
+                  <p style={{lineHeight: '1.5', fontSize: '0.875rem', color: '#9ca3af'}}>
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
             </div>
-            
-            <div>
-              <div className="text-4xl mb-3">⚡</div>
-              <h4 className="font-semibold mb-2 text-lg" style={{color: '#ffffff'}}>Simplicidade</h4>
-              <p className="text-sm leading-relaxed" style={{color: '#9ca3af'}}>
-                Interface fácil de usar para todos
-              </p>
-            </div>
-            
-            <div>
-              <div className="text-4xl mb-3">🔒</div>
-              <h4 className="font-semibold mb-2 text-lg" style={{color: '#ffffff'}}>Privacidade</h4>
-              <p className="text-sm leading-relaxed" style={{color: '#9ca3af'}}>
-                Seus dados são sempre protegidos
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* CTA Final */}
         {!isLoggedIn && (
-          <div className="text-center card max-w-3xl mx-auto" style={{
+          <div style={{
+            textAlign: 'center',
             background: 'linear-gradient(135deg, #ff6b35, #ff8c42)',
-            border: 'none'
+            border: 'none',
+            borderRadius: '1rem',
+            padding: '2rem'
           }}>
-            <h3 className="text-3xl font-bold mb-4 text-white">
+            <h3 style={{fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '1rem', color: 'white'}}>
               Pronto para começar?
             </h3>
-            <p className="text-white/90 mb-6 text-lg">
-              Cadastre-se agora e comece a gerenciar sua alimentação de forma inteligente
+            <p style={{color: 'rgba(255, 255, 255, 0.9)', marginBottom: '1.5rem', fontSize: '1rem'}}>
+              Cadastre-se e comece a gerenciar sua alimentação
             </p>
             <a
-              href="/cadastro"
-              className="inline-block px-10 py-4 rounded-xl font-semibold transition hover:scale-105"
+              href="/registro"
               style={{
+                display: 'inline-block',
+                padding: '1rem 2.5rem',
+                borderRadius: '0.75rem',
                 background: 'white',
                 color: '#ff8c42',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)'
+                fontWeight: '600',
+                fontSize: '1rem',
+                textDecoration: 'none',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
               }}
             >
               Criar Conta Grátis
@@ -291,18 +339,29 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <div className="grid grid-cols-3 gap-12 mt-8 text-center relative z-10 max-w-2xl mx-auto">
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '3rem',
+        marginTop: '2rem',
+        textAlign: 'center',
+        position: 'relative',
+        zIndex: 10,
+        maxWidth: '800px',
+        margin: '2rem auto 0',
+        padding: '0 1rem'
+      }}>
         <div>
-          <div className="text-4xl font-bold mb-2" style={{color: '#ff8c42'}}>100+</div>
-          <div className="text-sm" style={{color: '#6b7280'}}>Alimentos</div>
+          <div style={{fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#ff8c42'}}>100+</div>
+          <div style={{fontSize: '0.875rem', color: '#6b7280'}}>Alimentos</div>
         </div>
         <div>
-          <div className="text-4xl font-bold mb-2" style={{color: '#ff8c42'}}>24/7</div>
-          <div className="text-sm" style={{color: '#6b7280'}}>Disponível</div>
+          <div style={{fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#ff8c42'}}>24/7</div>
+          <div style={{fontSize: '0.875rem', color: '#6b7280'}}>Disponível</div>
         </div>
         <div>
-          <div className="text-4xl font-bold mb-2" style={{color: '#ff8c42'}}>∞</div>
-          <div className="text-sm" style={{color: '#6b7280'}}>Possibilidades</div>
+          <div style={{fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#ff8c42'}}>∞</div>
+          <div style={{fontSize: '0.875rem', color: '#6b7280'}}>Possibilidades</div>
         </div>
       </div>
     </main>
