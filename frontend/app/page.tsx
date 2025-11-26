@@ -1,10 +1,25 @@
-// frontend/app/page.tsx
+// ============================================
+// ARQUIVO 1: frontend/app/page.tsx (HOME)
+// ============================================
+
 'use client'
 
 import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -25,7 +40,7 @@ export default function Home() {
         }}
       />
       
-      {/* Hero Section - Primeira tela */}
+      {/* Hero Section */}
       <section style={{
         minHeight: 'calc(100vh - 120px)',
         display: 'flex',
@@ -75,7 +90,7 @@ export default function Home() {
 
         <div style={{
           display: 'flex',
-          flexDirection: window.innerWidth < 640 ? 'column' : 'row',
+          flexDirection: isMobile ? 'column' : 'row',
           gap: '1rem',
           justifyContent: 'center',
           alignItems: 'center',
@@ -89,7 +104,7 @@ export default function Home() {
               <a
                 href="/tela01"
                 style={{
-                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  width: isMobile ? '100%' : 'auto',
                   padding: '1rem 2rem',
                   borderRadius: '1rem',
                   background: 'linear-gradient(135deg, #ff6b35, #ff8c42)',
@@ -109,7 +124,7 @@ export default function Home() {
               <a
                 href="/saude"
                 style={{
-                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  width: isMobile ? '100%' : 'auto',
                   padding: '1rem 2rem',
                   borderRadius: '1rem',
                   background: '#1a1a1a',
@@ -132,7 +147,7 @@ export default function Home() {
               <a
                 href="/registro"
                 style={{
-                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  width: isMobile ? '100%' : 'auto',
                   padding: '1rem 2rem',
                   borderRadius: '1rem',
                   background: 'linear-gradient(135deg, #ff6b35, #ff8c42)',
@@ -152,7 +167,7 @@ export default function Home() {
               <a
                 href="#sobre"
                 style={{
-                  width: window.innerWidth < 640 ? '100%' : 'auto',
+                  width: isMobile ? '100%' : 'auto',
                   padding: '1rem 2rem',
                   borderRadius: '1rem',
                   background: '#1a1a1a',
@@ -177,7 +192,7 @@ export default function Home() {
       {/* Features Section */}
       <section style={{
         display: 'grid',
-        gridTemplateColumns: window.innerWidth < 640 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
         gap: '1.5rem',
         maxWidth: '1200px',
         width: '100%',
@@ -244,7 +259,6 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Mission */}
         <div style={{
           background: '#151515',
           border: '1px solid #2a2a2a',
@@ -266,10 +280,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* O que oferecemos */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: window.innerWidth < 640 ? '1fr' : 'repeat(2, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
           gap: '1.5rem',
           marginBottom: '2.5rem'
         }}>
@@ -301,7 +314,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* CTA Final */}
         {!isLoggedIn && (
           <div style={{
             textAlign: 'center',
@@ -338,7 +350,6 @@ export default function Home() {
         )}
       </section>
 
-      {/* Stats Section */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
